@@ -1,0 +1,8 @@
+README.md
+setup.py
+jargo/__init__.py
+jargo/robot.py
+jargo.egg-info/PKG-INFO
+jargo.egg-info/SOURCES.txt
+jargo.egg-info/dependency_links.txt
+jargo.egg-info/top_level.txt

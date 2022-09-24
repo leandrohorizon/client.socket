@@ -1,2 +1,3 @@
-/mods/*
-!/mods/hello_world.py
+venv
+.venv
+__pycache__
