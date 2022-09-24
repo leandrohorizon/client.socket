@@ -24,7 +24,6 @@ class Robot():
 
     reaction = interaction['reaction']
     Robot.previous_reaction_id = reaction['id']
-    print(f"Jargo: {reaction['text']}")
 
     for(procedure) in reaction['procedures']:
       procedure = procedure['procedure']
@@ -36,6 +35,8 @@ class Robot():
       arguments = procedure['arguments']
 
       Robot.procedures[command](arguments)
+
+    return reaction['text']
 
   def exec(self, name):
     def decorator(function):
