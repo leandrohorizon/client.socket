@@ -1,41 +1,7 @@
 import socket
-import requests
-import json
-import os
+from robot import Robot
 
-previous_reaction_id = None
-
-def speak(keywords):
-  global previous_reaction_id
-
-  request = requests.get('https://jargorobots.herokuapp.com/api/v1/robots/jargo/speak',
-                         data={'keywords': keywords,
-                               'previous_reaction_id': previous_reaction_id})
-
-  todo = json.loads(request.content)
-  interaction = todo['interaction']
-
-  if(interaction['id'] is None):
-    print('Sem resposta')
-    return
-
-  reaction = interaction['reaction']
-  previous_reaction_id = reaction['id']
-  print(f"Jargo: {reaction['text']}")
-
-  for(procedure) in reaction['procedures']:
-    exec(procedure['procedure']['command'])
-
-
-def exec(command):
-  print(f"command: {command}")
-
-  for (dirpath, dirnames, filenames) in os.walk("./mods/"):
-    for filename in filenames:
-      if filename.replace('.py', '') == command:
-        print(f"executando: {filename}")
-        os.system(f"python3 mods/{filename}")
-        return
+bot = Robot(nickname='jargo')
 
 def start():
   print('iniciado')
@@ -46,7 +12,7 @@ def start():
   udp.bind(orig)
   while True:
     msg, cliente = udp.recvfrom(1024)
-    print(f"leanddro: {msg}")
-    speak(msg)
+    print(f"leanddro: {msg.decode()}")
+    bot.speak(msg.decode())
 
 start()
