@@ -12,7 +12,11 @@ essa biblioteca serve para facilitar a conversação com os robôs Jargo, ela ta
       print('hello world')
     
     # para enviar uma mensagem para o seu robô é só
-    resposta = bot.speak('Olá')
+    bot.speak('Olá')
+    resposta = bot.get_response()
     print(f'resposta: {resposta}')
     # resposta: olá amigo
+    
+    # para executar os processos
+    bot.execute_procedures()
 ```
