@@ -31,23 +31,30 @@ class Robot():
 
     Robot.previous_reaction_id = reaction['id']
     self.response = reaction['text']
-    self.procedures = reaction['procedures']
 
-    return reaction['text']
+    if 'procedures' in reaction:
+      self.procedures = reaction['procedures']
+    else:
+      self.procedures = None
 
   def get_response(self):
     return self.response
 
   def execute_procedures(self):
+    if self.procedures == None:
+      return 'no processes found'
+
     for(procedure) in self.procedures:
       command = procedure['command']
 
       if not command in Robot.procedures:
-        return f'not_implemented: {command}'
+        return f'not implemented: {command}'
 
     for(procedure) in self.procedures:
       arguments = procedure['arguments']
       Robot.procedures[command](arguments)
+
+    return 'processes run successfully'
 
   def exec(self, name):
     def decorator(function):
